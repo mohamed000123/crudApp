@@ -3,8 +3,10 @@ var productPrice = document.getElementById("price");
 var productImg = document.getElementById("img");
 var productDesc = document.getElementById("desc");
 var submitBtn = document.getElementById("addBtn");
+var submitEditBtn = document.getElementById("editSubmit"); 
 
 submitBtn.addEventListener("click", addProduct);
+submitEditBtn.addEventListener("click", submitEditProduct);
 
 var productsList = [];
 if (localStorage.getItem("productsList") != null) {
@@ -21,9 +23,9 @@ if (
 ) {
   document.getElementById("alert").classList.remove("hide");
   document.getElementById("alert").classList.add("show");
-}else
-    document.getElementById("alert").classList.add("hide");
-    document.getElementById("alert").classList.remove("show");
+}else{
+  document.getElementById("alert").classList.add("hide");
+  document.getElementById("alert").classList.remove("show");
   var img = productImg.files[0];
   var ImgSrc = `${URL.createObjectURL(img)}`;
   var product = {
@@ -35,6 +37,7 @@ if (
   productsList.push(product);
   localStorage.setItem("productsList", JSON.stringify(productsList));
   display(productsList);
+}
 }
 
 function display(List) {
@@ -72,12 +75,42 @@ function deleteProduct(index) {
 }
 
 function editProduct(index) {
-EditingMode = true
-productName.value = productsList[index].name;
-productPrice.value = productsList[index].price;
-productDesc.value = productsList[index].desc;
-NewName = productName.value;
-NewPrice = productPrice.value;
-newDesc = productDesc.value
+// submitBtn.classList.add("hide");
+// submitEditBtn.classList.remove("hide")
+// productName.value = productsList[index].name;
+// productPrice.value = productsList[index].price;
+// productDesc.value = productsList[index].desc;
 
+// submitEditProduct(index);
+}
+
+function submitEditProduct(index) {
+// var NewName = productName.value;
+// var NewPrice = productPrice.value;
+// var newDesc = productDesc.value;
+//   productsList = JSON.parse(localStorage.getItem("productsList"));
+//   productsList[index] = {
+//     name: NewName,
+//     price: NewPrice,
+//     desc: newDesc,
+//   };
+//   console.log(productsList);
+//   localStorage.setItem("productsList", JSON.stringify(productsList));
+//   console.log(productsList);
+
+//   submitBtn.classList.remove("hide");
+//   submitEditBtn.classList.add("hide");
+}
+
+
+function search() {
+  let search = document.getElementById("search").value;
+  console.log(search);
+  var searched = [];
+  for (var i = 0; i < productsList.length; i++)
+    if (productsList[i].name.toUpperCase().includes(search.toUpperCase())) {
+      searched.push(productsList[i]);
+      console.log(searched);
+      display(searched);
+    }
 }

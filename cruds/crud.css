@@ -1,9 +1,12 @@
+.container{
+    position:relative;
+}
 .input_field {
-    width: 100%;
+    width: 99%;
     border: 1px solid #ced4da;
     border-radius: 5px;
     height: 40px;
-    margin: 7px 0px
+    margin: 7px auto;
 }
 
 .input_field:focus,
@@ -15,7 +18,7 @@
 }
 
 .desc {
-    width: 100%;
+    width: 99%;
     border: 1px solid #ced4da;
     border-radius: 5px;
     height: 100px;
@@ -30,14 +33,25 @@
     color: white;
     border-radius: 5px;
 }
-
+#editSubmit{
+    padding: 7px 30px;
+    margin-top: 45px;
+    background-color: blue;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    position:absolute;
+    left:0px
+}
 .addBtn:focus {
     outline: none;
     box-shadow: 0px 0px 0px 5px rgb(173, 230, 227);
 }
 
+#search{
+    margin-top: 100px ;
+}
 #products {
-    margin: 100px 0px;
     display: flex;
     flex-wrap: wrap;
 }
