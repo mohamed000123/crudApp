@@ -13,9 +13,19 @@ if (localStorage.getItem("productsList") != null) {
 }
 
 function addProduct() {
+if (
+  !productName.value ||
+  !productPrice.value ||
+  !productImg.value ||
+  !productDesc.value
+) {
+  document.getElementById("alert").classList.remove("hide");
+  document.getElementById("alert").classList.add("show");
+}else
+    document.getElementById("alert").classList.add("hide");
+    document.getElementById("alert").classList.remove("show");
   var img = productImg.files[0];
   var ImgSrc = `${URL.createObjectURL(img)}`;
-  console.log(ImgSrc);
   var product = {
     name: productName.value,
     price: productPrice.value,
@@ -43,7 +53,8 @@ function display(List) {
           </div>
           <div class="productDesc">
             <p>${List[i].desc}</p>
-            <a href="./productDetails.html"><button id=detailsBtn onClick="detailsPageNavigation()">product details</button></a>
+            <button id=deleteBtn onClick="deleteProduct(${i})">delete </button>
+            <a href="#form" ><button id=editBtn onClick="editProduct(${i})">edit </button></a>
           </div>
         </div>
       </div>
@@ -54,4 +65,19 @@ function display(List) {
   productsContainer.innerHTML = data;
 }
 
+function deleteProduct(index) {
+  productsList.splice(index, 1);
+  localStorage.setItem("productsList", JSON.stringify(productsList));
+  display(productsList);
+}
 
+function editProduct(index) {
+EditingMode = true
+productName.value = productsList[index].name;
+productPrice.value = productsList[index].price;
+productDesc.value = productsList[index].desc;
+NewName = productName.value;
+NewPrice = productPrice.value;
+newDesc = productDesc.value
+
+}

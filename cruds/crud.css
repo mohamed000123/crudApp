@@ -80,9 +80,32 @@
     position: relative;
 }
 
-#detailsBtn{
+#deleteBtn{
 position:absolute;
-bottom:20px
+bottom:20px;
+background-color: red;
+color:white
+}
+#editBtn {
+    position: absolute;
+    bottom: 20px;
+    right:0px;
+    background-color: rgb(0, 255, 51);
+    color: red;
+    width:60px
+}
+
+#alert{
+    border:2px solid red;
+    margin-top: 20px;
+    background-color: rgb(255, 34, 0);
+    color:white;
+}
+.hide{
+  display: none;
+}
+.show{
+  display:block;
 }
 
 @media screen and (max-width: 500px) {
