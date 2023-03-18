@@ -132,6 +132,18 @@
   display: block;
 }
 
+#up{
+margin-top: 45px;
+position: relative;
+}
+#scrollUP{
+  font-size: 45px;
+  background-color: rgba(128, 128, 128, 0.628);
+  position:absolute;
+  top: 0px;
+  right: 0px;
+}
+
 @media screen and (max-width: 500px) {
   .productContainer {
     width: 100%;

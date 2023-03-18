@@ -145,3 +145,14 @@ function clear() {
   productDesc.value = "";
   productCat.value = "";
 }
+
+var up = document.getElementById("scrollUP");
+up.addEventListener("click",goUp)
+
+function goUp (){
+    window.scrollTo({
+      left: 0,
+      top: 0,
+      behavior: "smooth",
+    });
+}
