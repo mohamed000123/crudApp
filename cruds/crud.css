@@ -1,144 +1,141 @@
-.container{
-    position:relative;
+.container {
+  position: relative;
 }
 .input_field {
-    width: 99%;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    height: 40px;
-    margin: 7px auto;
+  width: 99%;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  height: 40px;
+  margin: 7px auto;
 }
 
 .input_field:focus,
 .desc:focus {
-    outline: none;
-    border: 1px solid blue;
-    box-shadow: 0px 0px 0px 3px rgb(173, 230, 227);
-
+  outline: none;
+  border: 1px solid blue;
+  box-shadow: 0px 0px 0px 3px rgb(173, 230, 227);
 }
 
 .desc {
-    width: 99%;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    height: 100px;
-    margin: 7px 0px
+  width: 99%;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  height: 100px;
+  margin: 7px 0px;
 }
 
 #addBtn {
-    padding: 7px;
-    margin-top: 45px;
-    background-color: blue;
-    border: none;
-    color: white;
-    border-radius: 5px;
+  padding: 7px;
+  margin-top: 45px;
+  background-color: blue;
+  border: none;
+  color: white;
+  border-radius: 5px;
 }
-#editSubmit{
-    padding: 7px 30px;
-    margin-top: 45px;
-    background-color: blue;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    position:absolute;
-    left:0px
+#editSubmit {
+  padding: 7px 30px;
+  margin-top: 45px;
+  background-color: blue;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  position: absolute;
+  left: 0px;
 }
 .addBtn:focus {
-    outline: none;
-    box-shadow: 0px 0px 0px 5px rgb(173, 230, 227);
+  outline: none;
+  box-shadow: 0px 0px 0px 5px rgb(173, 230, 227);
 }
 
-#search{
-    margin-top: 100px ;
+#search {
+  margin-top: 100px;
 }
 #products {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-
-.productContainer{
-    height: 350px;
-    width: 25%;
-    padding: 10px 20px;
-    box-sizing: border-box;
-
+.productContainer {
+  height: 350px;
+  width: 25%;
+  padding: 10px 20px;
+  box-sizing: border-box;
 }
 .product {
-    height: 100%;
-    width: 100%;
-    border: 1px solid grey;
-    background-color: azure;
-
+  height: 100%;
+  width: 100%;
+  border: 1px solid grey;
+  background-color: azure;
+  position: relative;
 }
-
 
 .productBody {
-    height: 60%;
-    margin-top: 0px;
+  height: 70%;
 }
 
+.productBody h3 {
+  margin-top: 5px;
+  margin-left: 5px;
+}
 .productBody p {
-    margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 5px;
 }
 
 .productBody img {
-    width: 100%;
-    height: 80%;
+  width: 100%;
+  height: 80%;
 }
 
 .productDesc {
-    height: 40%;
-    overflow: auto;
-    margin-top: 20px;
-    position: relative;
+  height: 30%;
+  overflow: auto;
 }
-
-#deleteBtn{
-position:absolute;
-bottom:20px;
-background-color: red;
-color:white
+.productDesc p {
+  margin-left: 5px;
+}
+#deleteBtn {
+  position: absolute;
+  bottom: 0px;
+  background-color: red;
+  color: white;
 }
 #editBtn {
-    position: absolute;
-    bottom: 20px;
-    right:0px;
-    background-color: rgb(0, 255, 51);
-    color: red;
-    width:60px
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background-color: rgb(0, 255, 51);
+  color: red;
+  width: 55px;
 }
 
-#alert{
-    border:2px solid red;
-    margin-top: 20px;
-    background-color: rgb(255, 34, 0);
-    color:white;
+#alert {
+  border: 1px solid red;
+  margin-top: 20px;
+  background-color: rgb(255, 34, 0);
+  color: white;
 }
-.hide{
+.hide {
   display: none;
 }
-.show{
-  display:block;
+.show {
+  display: block;
 }
 
 @media screen and (max-width: 500px) {
-    .productContainer {
-        width: 100%
-    }
+  .productContainer {
+    width: 100%;
+  }
 }
 
 @media screen and (min-width: 501px) and (max-width: 800px) {
-    .productContainer {
-        width: 50%
-    }
+  .productContainer {
+    width: 50%;
+  }
 }
 
 @media screen and (min-width: 801px) and (max-width: 1100px) {
-    .productContainer {
-        width: 33%
-    }
+  .productContainer {
+    width: 33%;
+  }
 }
-
-
-
