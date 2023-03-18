@@ -42,6 +42,7 @@ function addProduct() {
       behavior: "smooth",
     });
     clear();
+    checkScroll()
   }
 }
 
@@ -83,6 +84,7 @@ function deleteProduct(index) {
   productsList.splice(index, 1);
   localStorage.setItem("productsList", JSON.stringify(productsList));
   display(productsList);
+  checkScroll()
 }
 
 var Pindex;
@@ -143,10 +145,19 @@ function clear() {
   productName.value = "";
   productPrice.value = "";
   productDesc.value = "";
-  productCat.value = "";
 }
 
-var up = document.getElementById("scrollUP");
+
+function checkScroll (){
+  if (productsList.length > 4) {
+    console.log("show show");
+    up.setAttribute("class", "show");
+  } else {
+    console.log("hide hide");
+    up.setAttribute("class", "hide");
+  }
+}
+
 up.addEventListener("click",goUp)
 
 function goUp (){
