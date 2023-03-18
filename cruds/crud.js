@@ -57,17 +57,19 @@ function display(List) {
       <div class="productContainer">
         <div class="product">
           <div class="productBody">
-            <h3>${List[i].name}</h3>
-            <p>
+            <div class="title">
+              <h3>${List[i].name}</h3>
+             <p>
               ${List[i].price}
               <span style="color: blue"> EGP</span>
             </p>
+            </div>
             <img id="myImg" src="${List[i].img}" />
           </div>
           <div class="productDesc">
             <p>${List[i].desc}</p>
-            <button id=deleteBtn onClick="deleteProduct(${i})">delete </button>
-            <button id=editBtn onClick="editProduct(${i})">edit </button>
+             <button id=deleteBtn onClick="deleteProduct(${i})">delete </button>
+             <button id=editBtn onClick="editProduct(${i})">edit </button>
           </div>
         </div>
       </div>
