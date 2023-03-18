@@ -4,7 +4,6 @@ var productImg = document.getElementById("img");
 var productDesc = document.getElementById("desc");
 var submitBtn = document.getElementById("addBtn");
 var submitEditBtn = document.getElementById("editSubmit"); 
-
 submitBtn.addEventListener("click", addProduct);
 submitEditBtn.addEventListener("click", submitEditProduct);
 
@@ -38,9 +37,15 @@ if (
   localStorage.setItem("productsList", JSON.stringify(productsList));
   display(productsList);
 }
+clear()
 }
 
 function display(List) {
+  var productsContainer = document.getElementById("products");
+  var productsContainer = document.getElementById("products");
+  if (List.length == 0) {
+    productsContainer.innerHTML = `<img src="./notfound.png" style="height: 400px;width:400px;margin:auto"></img>`;
+  } else {
   var data = "";
   for (let i = 0; i < List.length; i++) {
     data += `
@@ -63,9 +68,8 @@ function display(List) {
       </div>
   `;
   }
-
-  var productsContainer = document.getElementById("products");
   productsContainer.innerHTML = data;
+}
 }
 
 function deleteProduct(index) {
@@ -74,43 +78,54 @@ function deleteProduct(index) {
   display(productsList);
 }
 
+var Pindex ;
 function editProduct(index) {
-// submitBtn.classList.add("hide");
-// submitEditBtn.classList.remove("hide")
-// productName.value = productsList[index].name;
-// productPrice.value = productsList[index].price;
-// productDesc.value = productsList[index].desc;
-
-// submitEditProduct(index);
+Pindex = index;
+submitBtn.classList.add("hide")
+submitEditBtn.classList.replace("hide","show");
+productName.value = productsList[index].name;
+productPrice.value = productsList[index].price;
+productDesc.value = productsList[index].desc;
 }
 
-function submitEditProduct(index) {
-// var NewName = productName.value;
-// var NewPrice = productPrice.value;
-// var newDesc = productDesc.value;
-//   productsList = JSON.parse(localStorage.getItem("productsList"));
-//   productsList[index] = {
-//     name: NewName,
-//     price: NewPrice,
-//     desc: newDesc,
-//   };
-//   console.log(productsList);
-//   localStorage.setItem("productsList", JSON.stringify(productsList));
-//   console.log(productsList);
+function submitEditProduct() {
+var NewName = productName.value;
+var NewPrice = productPrice.value;
+var newDesc = productDesc.value;
+var newImg = productImg.files[0];
+var newImgSrc = `${URL.createObjectURL(newImg)}`;
+  productsList = JSON.parse(localStorage.getItem("productsList"));
+  productsList[Pindex] = {
+    name: NewName,
+    price: NewPrice,
+    desc: newDesc,
+    img: newImgSrc,
+  };
+  display(productsList);
 
-//   submitBtn.classList.remove("hide");
-//   submitEditBtn.classList.add("hide");
+  localStorage.setItem("productsList", JSON.stringify(productsList));
+  submitBtn.classList.remove("hide");
+  submitEditBtn.classList.replace("show", "hide");
+  clear()
 }
 
 
 function search() {
   let search = document.getElementById("search").value;
-  console.log(search);
   var searched = [];
-  for (var i = 0; i < productsList.length; i++)
+  for (var i = 0; i < productsList.length; i++){
     if (productsList[i].name.toUpperCase().includes(search.toUpperCase())) {
       searched.push(productsList[i]);
-      console.log(searched);
       display(searched);
+    }else{
+      display([]);
     }
+  }
+}
+
+function clear() {
+  productName.value = "";
+  productPrice.value = "";
+  productDesc.value = "";
+  productCat.value = "";
 }

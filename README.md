@@ -1,2 +1,2 @@
 # crudApp
-simple crud app built with HTML, CSS, JS
+simple crud operations app built with HTML, CSS, JS
