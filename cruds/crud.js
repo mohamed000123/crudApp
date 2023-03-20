@@ -12,7 +12,7 @@ if (localStorage.getItem("productsList") != null) {
   productsList = JSON.parse(localStorage.getItem("productsList"));
   display(productsList);
 }
-
+checkScroll();
 function addProduct() {
   if (
     !productName.value ||
@@ -150,10 +150,8 @@ function clear() {
 
 function checkScroll (){
   if (productsList.length > 4) {
-    console.log("show show");
     up.setAttribute("class", "show");
   } else {
-    console.log("hide hide");
     up.setAttribute("class", "hide");
   }
 }
