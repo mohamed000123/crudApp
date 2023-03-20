@@ -135,9 +135,10 @@ function search() {
     if (productsList[i].name.toUpperCase().includes(search.toUpperCase())) {
       searched.push(productsList[i]);
       display(searched);
-    } else {
-      display([]);
-    }
+    } 
+  }
+  if ((searched.length == 0)) {
+    display([]);
   }
 }
 
