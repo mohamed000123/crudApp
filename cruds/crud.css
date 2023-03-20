@@ -1,5 +1,6 @@
 .container {
   position: relative;
+  margin-top:10px
 }
 .input_field {
   width: 99%;
@@ -145,6 +146,25 @@ position: relative;
   right: 0px;
 }
 
+
+.dark {
+  background-color: rgb(0, 0, 0);
+  /* color: white; */
+}
+
+.night {
+  background-color:white;
+  color: black;
+}
+
+#sun , #moon{
+  width:50px;
+  border-radius: 5px;
+}
+#sun{
+  background-color: yellow;
+  margin-right: 20px;
+}
 @media screen and (max-width: 500px) {
   .productContainer {
     width: 100%;

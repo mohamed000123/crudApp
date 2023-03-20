@@ -26,28 +26,36 @@ function addProduct() {
     document.getElementById("alert").classList.add("hide");
     document.getElementById("alert").classList.remove("show");
     var img = productImg.files[0];
-    var ImgSrc = `${URL.createObjectURL(img)}`;
-    var product = {
-      name: productName.value,
-      price: productPrice.value,
-      desc: productDesc.value,
-      img: ImgSrc,
-    };
-    productsList.push(product);
-    localStorage.setItem("productsList", JSON.stringify(productsList));
-    display(productsList);
+    var name = productName.value;
+    var price = productPrice.value;
+    var desc = productDesc.value;
+    const fr = new FileReader();
+    fr.readAsDataURL(img);
+    fr.addEventListener("load", () => {
+      var ImgSrc = fr.result;
+
+      var product = {
+        name: name,
+        price: price,
+        desc: desc,
+        img: ImgSrc,
+      };
+      productsList.push(product);
+      localStorage.setItem("productsList", JSON.stringify(productsList));
+      display(productsList);
+    });
+
     window.scrollTo({
       left: 0,
       top: document.body.scrollHeight,
       behavior: "smooth",
     });
     clear();
-    checkScroll()
+    checkScroll();
   }
 }
 
 function display(List) {
-  var productsContainer = document.getElementById("products");
   var productsContainer = document.getElementById("products");
   if (List.length == 0) {
     productsContainer.innerHTML = `<img src="./notfound.png" style="height: 400px;width:400px;margin:auto"></img>`;
@@ -84,7 +92,7 @@ function deleteProduct(index) {
   productsList.splice(index, 1);
   localStorage.setItem("productsList", JSON.stringify(productsList));
   display(productsList);
-  checkScroll()
+  checkScroll();
 }
 
 var Pindex;
@@ -135,9 +143,9 @@ function search() {
     if (productsList[i].name.toUpperCase().includes(search.toUpperCase())) {
       searched.push(productsList[i]);
       display(searched);
-    } 
+    }
   }
-  if ((searched.length == 0)) {
+  if (searched.length == 0) {
     display([]);
   }
 }
@@ -148,8 +156,7 @@ function clear() {
   productDesc.value = "";
 }
 
-
-function checkScroll (){
+function checkScroll() {
   if (productsList.length > 4) {
     up.setAttribute("class", "show");
   } else {
@@ -157,12 +164,24 @@ function checkScroll (){
   }
 }
 
-up.addEventListener("click",goUp)
+up.addEventListener("click", goUp);
 
-function goUp (){
-    window.scrollTo({
-      left: 0,
-      top: 0,
-      behavior: "smooth",
-    });
+function goUp() {
+  window.scrollTo({
+    left: 0,
+    top: 0,
+    behavior: "smooth",
+  });
 }
+
+var sun = document.getElementById("sun");
+var moon = document.getElementById("moon");
+var form = document.getElementsByClassName("container")[0];
+sun.addEventListener("click", function () {
+  document.body.setAttribute("class", "night");
+  form.style.color = "black";
+});
+moon.addEventListener("click", function () {
+  document.body.setAttribute("class", "dark");
+  form.style.color = "white";
+});
