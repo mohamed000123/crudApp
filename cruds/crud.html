@@ -4,48 +4,50 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>main</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="./crud.css" rel="stylesheet" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./crud.css" />
   </head>
   <body>
-    <button id="sun">
-      <span id="sunIcon"><i class="fa-solid fa-sun" ></i></span>
-    </button>
     <button id="moon">
-    <i class="fa-solid fa-moon" id="moonIcon"></i>
+      <i class="fa-solid fa-moon"></i>
     </button>
-
+    <button id="sun">
+      <i class="fas fa-sun"></i>
+    </button>
     <div class="container">
       <label>Product name</label>
-      <input type="text" class="input_field" id="name" />
+      <input type="text" class="inputField" />
 
       <label>Product Price</label>
-      <input type="number" class="input_field" id="price" />
+      <input type="number" class="inputField" />
 
       <label>Product description</label>
-      <textarea class="desc" id="desc"> </textarea>
+      <textarea> </textarea>
 
-      <label>Product image</label>
+      <label id="upload">Product image</label>
       <input type="file" id="img" />
-      <br />
-      <div id="alert" class="hide">
-        <p>please fill all the fields</p>
-      </div>
-      <button id="addBtn">add product</button>
-      <button class="hide" id="editSubmit">Edit</button>
+      <p id="warning">please fill all the fields</p>
+      <button id="addProduct">add product</button>
+      <button id="editProduct">edit product</button>
     </div>
+
     <input
-      type="text"
-      class="input_field"
+      type="search"
       id="search"
-      onkeyup="search()"
-      placeholder="   search.."
+      class="inputField"
+      onkeyup="productSearch()"
     />
-    <div id="products"></div>
-    <div id="up">
+    <div class="products"></div>
+    <div id="up" style="display: none">
       <button id="scrollUP">^</button>
     </div>
-    <script src="crud.js"></script>
+    <script src="./crud.js"></script>
   </body>
 </html>

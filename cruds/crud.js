@@ -1,187 +1,227 @@
-var productName = document.getElementById("name");
-var productPrice = document.getElementById("price");
+var productName = document.getElementsByClassName("inputField")[0];
+var productPrice = document.getElementsByClassName("inputField")[1];
+var productDescription = document.querySelector("textarea");
 var productImg = document.getElementById("img");
-var productDesc = document.getElementById("desc");
-var submitBtn = document.getElementById("addBtn");
-var submitEditBtn = document.getElementById("editSubmit");
-submitBtn.addEventListener("click", addProduct);
-submitEditBtn.addEventListener("click", submitEditProduct);
+var addProductBtn = document.getElementById("addProduct");
+var productsContainer = document.getElementsByClassName("products")[0];
+var searchInput = document.getElementById("search");
+var warning = document.getElementById("warning");
+var up = document.getElementById("up");
+var scrollUP = document.getElementById("scrollUP");
+var uploadTitle = document.getElementById("upload");
 
-var productsList = [];
-if (localStorage.getItem("productsList") != null) {
-  productsList = JSON.parse(localStorage.getItem("productsList"));
-  display(productsList);
+addProductBtn.addEventListener("click", addProduct);
+var products = [];
+
+if (JSON.parse(localStorage.getItem("productsList")) != null) {
+  products = JSON.parse(localStorage.getItem("productsList"));
+  displayProducts(products);
 }
+
 checkScroll();
+
 function addProduct() {
   if (
     !productName.value ||
     !productPrice.value ||
-    !productImg.value ||
-    !productDesc.value
+    !productDescription.value ||
+    !productImg.value
   ) {
-    document.getElementById("alert").classList.remove("hide");
-    document.getElementById("alert").classList.add("show");
+    warning.style.display = "block";
   } else {
-    document.getElementById("alert").classList.add("hide");
-    document.getElementById("alert").classList.remove("show");
+    warning.style.display = "none";
     var img = productImg.files[0];
-    var name = productName.value;
-    var price = productPrice.value;
-    var desc = productDesc.value;
+    var pName = productName.value;
+    var pPrice = productPrice.value;
+    var pDesc = productDescription.value;
     const fr = new FileReader();
     fr.readAsDataURL(img);
     fr.addEventListener("load", () => {
       var ImgSrc = fr.result;
-
       var product = {
-        name: name,
-        price: price,
-        desc: desc,
+        pId: products.length == 0 ? 0 : products.length,
+        pName,
+        pPrice,
+        pDesc,
         img: ImgSrc,
       };
-      productsList.push(product);
-      localStorage.setItem("productsList", JSON.stringify(productsList));
-      display(productsList);
+      products.push(product);
+      localStorage.setItem("productsList", JSON.stringify(products));
+      displayProducts(products);
     });
-
-    window.scrollTo({
-      left: 0,
-      top: document.body.scrollHeight,
-      behavior: "smooth",
-    });
-    clear();
+    clearData();
+    goDown(document.body.scrollHeight);
     checkScroll();
   }
 }
 
-function display(List) {
-  var productsContainer = document.getElementById("products");
-  if (List.length == 0) {
-    productsContainer.innerHTML = `<img src="./notfound.png" style="height: 400px;width:400px;margin:auto"></img>`;
+function displayProducts(list) {
+  if (list.length == 0) {
+    productsContainer.innerHTML = ` <img src="./notfound.png" style="width:500px;height:500px;margin:auto">`;
   } else {
-    var data = "";
-    for (let i = 0; i < List.length; i++) {
-      data += `
-      <div class="productContainer">
-        <div class="product">
-          <div class="productBody">
-            <div class="title">
-              <h3>${List[i].name}</h3>
-             <p>
-              ${List[i].price}
-              <span style="color: blue"> EGP</span>
-            </p>
+    var productsData = ``;
+    for (var i = 0; i < list.length; i++) {
+      productsData += `
+     <div class="product">
+        <div class="productContainer">
+            <div class="head">
+              <div class="title">
+                <h3 id="productName">${list[i].pName}</h3>
+                <p id="productPrice">${list[i].pPrice} EGP</p>
+              </div>
+               <img id="myImg" src="${list[i].img}" />
+              </div>
+            <div class="body">
+             <p id="productDesc">${list[i].pDesc}</p>
+             <button id="delete"  onclick="deleteProduct(${list[i].pId})">delete</button>
+             <button id="edit" onclick="editProduct(${list[i].pId})">edit</button>
             </div>
-            <img id="myImg" src="${List[i].img}" />
-          </div>
-          <div class="productDesc">
-            <p>${List[i].desc}</p>
-             <button id=deleteBtn onClick="deleteProduct(${i})">delete </button>
-             <button id=editBtn onClick="editProduct(${i})">edit </button>
-          </div>
         </div>
-      </div>
-  `;
+     </div>
+
+`;
     }
-    productsContainer.innerHTML = data;
+
+    productsContainer.innerHTML = productsData;
   }
 }
 
-function deleteProduct(index) {
-  productsList.splice(index, 1);
-  localStorage.setItem("productsList", JSON.stringify(productsList));
-  display(productsList);
+function deleteProduct(id) {
+  var pIndex = products.findIndex(function (item) {
+    return id == item.pId;
+  });
+
+  products.splice(pIndex, 1);
+  localStorage.setItem("productsList", JSON.stringify(products));
+  displayProducts(products);
   checkScroll();
 }
 
-var Pindex;
-function editProduct(index) {
-  Pindex = index;
-  submitBtn.classList.add("hide");
-  submitEditBtn.classList.replace("hide", "show");
-  productName.value = productsList[index].name;
-  productPrice.value = productsList[index].price;
-  productDesc.value = productsList[index].desc;
-  display(productsList);
-  window.scrollTo({
-    left: 0,
-    top: 0,
-    behavior: "smooth",
-  });
-}
-
-function submitEditProduct() {
-  var NewName = productName.value;
-  var NewPrice = productPrice.value;
-  var newDesc = productDesc.value;
-  var newImg = productImg.files[0];
-  var newImgSrc = `${URL.createObjectURL(newImg)}`;
-  productsList = JSON.parse(localStorage.getItem("productsList"));
-  productsList[Pindex] = {
-    name: NewName,
-    price: NewPrice,
-    desc: newDesc,
-    img: newImgSrc,
-  };
-  display(productsList);
-  localStorage.setItem("productsList", JSON.stringify(productsList));
-  window.scrollTo({
-    left: 0,
-    top: document.body.scrollHeight,
-    behavior: "smooth",
-  });
-  submitBtn.classList.remove("hide");
-  submitEditBtn.classList.replace("show", "hide");
-  clear();
-}
-
-function search() {
-  let search = document.getElementById("search").value;
-  var searched = [];
-  for (var i = 0; i < productsList.length; i++) {
-    if (productsList[i].name.toUpperCase().includes(search.toUpperCase())) {
-      searched.push(productsList[i]);
-      display(searched);
+function productSearch() {
+  var searchWord = searchInput.value;
+  var searchResult = [];
+  for (var i = 0; i < products.length; i++) {
+    if (products[i].pName.toLowerCase().includes(searchWord.toLowerCase())) {
+      searchResult.push(products[i]);
+      displayProducts(searchResult);
+    } else if (searchResult.length == 0) {
+      displayProducts([]);
     }
   }
-  if (searched.length == 0) {
-    display([]);
+}
+
+var pIndex;
+var pId;
+var pHeight;
+var editProductBtn = document.getElementById("editProduct");
+function editProduct(pId) {
+  pHeight = window.scrollY;
+  pId = pId;
+  pIndex = products.findIndex(function (item) {
+    return pId == item.pId;
+  });
+  productName.value = products[pIndex].pName;
+  productPrice.value = products[pIndex].pPrice;
+  productDescription.value = products[pIndex].pDesc;
+  goUp();
+  editProductBtn.style.display = "block";
+}
+
+editProductBtn.addEventListener("click", submitEditProduct);
+
+function submitEditProduct() {
+  if (!productName.value || !productPrice.value || !productDescription.value) {
+    warning.style.display = "block";
+  } else {
+    warning.style.display = "none";
+    var newImg = productImg.files[0];
+
+    const fr = new FileReader();
+    fr.readAsDataURL(newImg);
+    fr.addEventListener("load", () => {
+      var ImgSrc = fr.result;
+      var updatedProduct = {
+        pId: pId,
+        pName: productName.value,
+        pPrice: productPrice.value,
+        pDesc: productDescription.value,
+        img: ImgSrc,
+      };
+      products[pIndex] = updatedProduct;
+      localStorage.setItem("productsList", JSON.stringify(products));
+      displayProducts(products);
+    });
+
+    editProductBtn.style.display = "none";
+    clearData();
+    goDown(pHeight);
   }
 }
 
-function clear() {
+function clearData() {
   productName.value = "";
   productPrice.value = "";
-  productDesc.value = "";
+  productDescription.value = "";
 }
 
-function checkScroll() {
-  if (productsList.length > 4) {
-    up.setAttribute("class", "show");
-  } else {
-    up.setAttribute("class", "hide");
-  }
+function goUp() {
+  scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
+}
+
+function goDown(pHeight) {
+  scrollTo({
+    top: pHeight,
+    left: 0,
+    behavior: "smooth",
+  });
 }
 
 up.addEventListener("click", goUp);
-
-function goUp() {
-  window.scrollTo({
-    left: 0,
-    top: 0,
-    behavior: "smooth",
-  });
+function checkScroll() {
+  if (products.length > 4) {
+    up.style.display = "block";
+  } else {
+    up.style.display = "none";
+  }
 }
 
-var sun = document.getElementById("sun");
+var delBtns = document.querySelectorAll("#delete");
+var editBtns = document.querySelectorAll("#edit");
 var moon = document.getElementById("moon");
-var form = document.getElementsByClassName("container")[0];
-sun.addEventListener("click", function () {
-  document.body.setAttribute("class", "night");
-  form.style.color = "black";
-});
-moon.addEventListener("click", function () {
-  document.body.setAttribute("class", "dark");
-  form.style.color = "white";
-});
+moon.addEventListener("click", dark);
+function dark() {
+  document.body.style.backgroundColor = "black";
+  document.body.style.color = "gold";
+  scrollUP.style.backgroundColor = "gold";
+  productName.style.border = "3px solid blue";
+  productPrice.style.border = "3px solid blue";
+  productDescription.style.border = "3px solid blue";
+  searchInput.style.border = "3px solid blue";
+  for (var i = 0; i < delBtns.length; i++) {
+    delBtns[i].style.border = "1px solid gold";
+  }
+  for (var i = 0; i < editBtns.length; i++) {
+    editBtns[i].style.border = "1px solid gold";
+  }
+}
+var sun = document.getElementById("sun");
+sun.addEventListener("click", light);
+function light() {
+  document.body.style.backgroundColor = "white";
+  document.body.style.color = "black";
+  scrollUP.style.backgroundColor = "grey";
+  productName.style.border = "1px solid #ced4da";
+  productPrice.style.border = "1px solid #ced4da";
+  productDescription.style.border = "1px solid #ced4da";
+  searchInput.style.border = "1px solid #ced4da";
+  for (var i = 0; i < delBtns.length; i++) {
+    delBtns[i].style.border = "1px solid navy";
+  }
+  for (var i = 0; i < editBtns.length; i++) {
+    editBtns[i].style.border = "1px solid navy";
+  }
+}
