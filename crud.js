@@ -50,7 +50,9 @@ function addProduct() {
       displayProducts(products);
     });
     clearData();
-    goDown(document.body.scrollHeight);
+    setTimeout(()=>{
+      goDown(document.body.scrollHeight);
+    },100)
     checkScroll();
   }
 }
