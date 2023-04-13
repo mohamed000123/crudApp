@@ -135,6 +135,9 @@ function submitEditProduct() {
   } else {
     warning.style.display = "none";
     var newImg = productImg.files[0];
+    var pName = productName.value;
+    var pPrice = productPrice.value;
+    var pDesc = productDescription.value;
 
     const fr = new FileReader();
     fr.readAsDataURL(newImg);
@@ -142,9 +145,9 @@ function submitEditProduct() {
       var ImgSrc = fr.result;
       var updatedProduct = {
         pId: pId,
-        pName: productName.value,
-        pPrice: productPrice.value,
-        pDesc: productDescription.value,
+        pName,
+        pPrice,
+        pDesc,
         img: ImgSrc,
       };
       products[pIndex] = updatedProduct;
